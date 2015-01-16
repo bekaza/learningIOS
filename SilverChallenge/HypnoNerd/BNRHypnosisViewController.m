@@ -23,14 +23,12 @@
     self.view = backgroundView;
 }*/
 
-+ (NSArray *)colors
-{
-    return @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor]];
-}
+
 
 - (IBAction)changeColor:(UISegmentedControl *)sender
 {
-    self.hypnosisView.circleColor = [BNRHypnosisViewController colors][sender.selectedSegmentIndex];
+    NSArray * array = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor]];
+    self.hypnosisView.circleColor = array[sender.selectedSegmentIndex];
 }
 
 - (void)viewDidLoad

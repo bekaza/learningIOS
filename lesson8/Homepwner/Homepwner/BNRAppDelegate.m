@@ -1,70 +1,30 @@
 //
 //  BNRAppDelegate.m
-//  Hypnosister
+//  Homepwner
 //
-//  Created by manit on 13/1/2558.
+//  Created by manit on 24/1/2558.
 //  Copyright (c) พ.ศ. 2558 golf. All rights reserved.
 //
 
 #import "BNRAppDelegate.h"
-#import "BNRHypnosisView.h"
-
-@interface BNRAppDelegate() <UIScrollViewDelegate>
-
-@property (nonatomic , strong) BNRHypnosisView * hrv;
-
-@end
+#import "BNRItemsViewController.h"
 
 @implementation BNRAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    // Create CGRects for frames
-    CGRect screenRect = self.window.bounds;
-    CGRect bigRect = screenRect;
-    bigRect.size.width *= 2.0;
-    //bigRect.size.height *= 2.0;
-    
-    // Create a screen-sized scroll view and add it to the window
-    UIScrollView * scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
-    
-    scrollView.delegate = self;
-    scrollView.pagingEnabled = NO;
-    // Tell the scroll view how big its content area is
-    scrollView.contentSize = bigRect.size;
-    
-    // scrollView's Maximun Zoom
-    scrollView.maximumZoomScale = 2.5;
-    
-    // scrollView's minimum Zoom
-    scrollView.minimumZoomScale = 0.5;
-    
-    [self.window addSubview:scrollView];
-    
-    
-    // Create a screen-sized hypnosis view and add it to the scroll view
-    self.hrv = [[BNRHypnosisView alloc] initWithFrame:screenRect];
-    [scrollView addSubview:self.hrv];
-    
-    /// Add a second screen-sized hypnosis view just off screen to the right
-    //screenRect.origin.x += screenRect.size.width;
-    //BNRHypnosisView * anotherView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
-    //[scrollView addSubview:anotherView];
-    
     // Override point for customization after application launch.
+    
+    // Create a BNRItemsViewController
+    BNRItemsViewController * itemsViewController = [[BNRItemsViewController alloc] init];
+    self.window.rootViewController = itemsViewController;
+    
+    // Place BNRItemsViewController's table view in the window hierarchy
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
-}
-
-// Method that retunrs the view of the scrollView
--(UIView *)viewForZoomingInScrollView:(UIScrollView *) scrollView
-{
-    // Return a BNRHypnosisView
-    NSLog(@"Zoom");
-    return self.hrv;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

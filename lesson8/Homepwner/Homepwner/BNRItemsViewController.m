@@ -18,6 +18,7 @@
     self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
+        [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
         for (int i = 0; i < 5; i++) {
             [[BNRItemStore sharedStore] createItem];
         }

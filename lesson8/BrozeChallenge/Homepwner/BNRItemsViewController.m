@@ -19,7 +19,8 @@
     self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
-        [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
+        //Set Frame
+        
         for (int i = 0; i < 5; i++) {
             [[BNRItemStore sharedStore] createItem];
         }
@@ -47,6 +48,19 @@
         return @"Value Rest";
 }
 
+//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    CGRect footerFrame = [tableView rectForFooterInSection:1];
+//    CGRect labelFrame = CGRectMake(20, 20, footerFrame.size.width - 40, footerFrame.size.height - 40);
+//    
+//    UIView *footer = [[UIView alloc] initWithFrame:footerFrame];
+//    UILabel *footerLabel = [[UILabel alloc] initWithFrame:labelFrame];
+//    footerLabel.textColor = [UIColor blueColor];
+//    footerLabel.text = @"...";
+//    [footer addSubview:footerLabel];
+//    return footer;
+//}
+
 - (NSInteger)tableView:(UITableView *)tableView
             numberOfRowsInSection:(NSInteger)section
 {
@@ -56,7 +70,7 @@
     if (section == 0) {
         return [[[BNRItemStore sharedStore] allItemsWorst] count];
     }else{
-        return [[[BNRItemStore sharedStore] allItemsRest] count] + 1;
+        return [[[BNRItemStore sharedStore] allItemsRest] count];
     }
 }
 
@@ -71,22 +85,38 @@
     // will appear in on the tableview
     //NSLog(@"indexPath Section --> %d",indexPath.section);
     NSArray * items;
-    NSInteger lastrow = 0;
+    NSInteger lastrow = -1;
     if(indexPath.section == 0){
         items = [[BNRItemStore sharedStore] allItemsWorst];
     }else{
         items = [[BNRItemStore sharedStore] allItemsRest];
         lastrow = items.count;
     }
-    
-    if (indexPath.section != 0 && lastrow == indexPath.row && lastrow != 0) {
+    //Nomore in table view
+    /*if (indexPath.section != 0 && lastrow == indexPath.row && lastrow != -1) {
         cell.textLabel.text = @"No more item!";
     }else{
         BNRitem * item = items[indexPath.row];
         cell.textLabel.text = [item description];
-    }
+    }*/
     
+    BNRitem * item = items[indexPath.row];
+    cell.textLabel.text = [item description];
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+    //last row
+    /*NSArray * itemsRest = [[BNRItemStore sharedStore] allItemsRest];
+    NSIndexPath * lastIndex = [NSIndexPath indexPathForRow:[itemsRest count] inSection:1];
+    if (indexPath.section == 1 && lastIndex.row == indexPath.row) {
+        return 44;
+    }else{
+        return 60;
+    }*/
 }
 
 -(void)viewDidLoad
@@ -95,5 +125,25 @@
     
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:@"UITableViewCell"];
+    
+    //footer text
+    UITableViewCell * lastcell = [[UITableViewCell alloc]init];
+    lastcell.textLabel.text = @"No more Item !";
+    UIFont *myFont = [ UIFont fontWithName: @"Arial" size: 20.0 ];
+    lastcell.textLabel.font  = myFont;
+    self.tableView.tableFooterView = lastcell;
+    
+    //image Background
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    [tempImageView setFrame:self.tableView.frame];
+    self.tableView.backgroundView = tempImageView;
+    
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    [self.tableView setFrame:CGRectMake(frame.origin.x, frame.origin.y + 20, frame.size.width, frame.size.height-20)];
 }
 @end

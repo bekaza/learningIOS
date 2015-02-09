@@ -1,0 +1,15 @@
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "LKw-vc-GPU"; */
+"LKw-vc-GPU.text" = "Name";
+
+/* Class = "IBUILabel"; text = "Serial"; ObjectID = "Oaa-6W-he9"; */
+"Oaa-6W-he9.text" = "Serial";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "QiB-WU-6L6"; */
+"QiB-WU-6L6.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Value"; ObjectID = "c4a-8Y-neX"; */
+"c4a-8Y-neX.text" = "Value";
+
+/* Class = "IBUIBarButtonItem"; title = "Item"; ObjectID = "uC5-AO-9me"; */
+"uC5-AO-9me.title" = "Item";
